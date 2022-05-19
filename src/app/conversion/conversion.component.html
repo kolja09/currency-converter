@@ -1,24 +1,25 @@
 <div class="wrapper">
     <div class="main-container">
         <div class="selection-count">
-            <select #c1 (mouseleave)="changeBase(c1.value)" >
-                <option value="UAH">UAH</option>
-            </select>
+            <select name="currencyFrom" id="currencyFrom" #from (change)="getFlag(from.value, to.value)" >
+                <option *ngFor="let c of currenciesFrom" [value]="c" [selected]="c == 'MAD'" >
+                  {{c}}
+                </option>
+              </select>
             <p>to</p>
-            <select #c2  (mouseleave)="toCountry(c2.value)">
-                <option value="USD">US Dollar</option>
-                <option value="UAH">UAH</option>
-                <option value="EUR">Euro</option>
-            </select>
+            <select name="currencyTo" id="currencyTo" #to (change)="getFlag(from.value, to.value)"  >
+                <option *ngFor="let c of currenciesTo" [value]="c" [selected]="c == 'USD'" >
+                  {{c}}
+                </option>
+              </select>
         </div>
         <div class="convert">
-            <input type="text" (input)="inputHandler($event)"/> 
-            <button (click)="convert()">Convert</button>
+            <input id="amount" type="number"  (input)="inputHandler($event)" [(ngModel)]="value" />
+            <button (click)="convertCurrency(from.value, to.value, value)">Convert</button>
         </div>
         <div class="result-container">
-            <p>{{count}} {{ base }}</p>
-            <p>=</p>
-            <p>{{ result }} {{ cont2 }}</p>
+          <div>Result: </div>
+          <p class="result">{{result}}</p>
         </div>
     </div>  
 </div>

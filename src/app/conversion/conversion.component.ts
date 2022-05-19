@@ -8,48 +8,47 @@ import { CurrencyapidataService } from '../currencyapidata.service';
 })
 
 export class ConversionComponent{
+  public value:number = 1;
+  public currenciesFrom:any;
+  public currenciesTo:any;
+  public data:any;
+  public valueFrom:any;
+  public valueTo:any;
+  public result:any;
+  public flagFrom:string = 'ma'.toLowerCase();
+  public flagTo:string = 'us'.toLowerCase();
 
-  currjson:any  = [];
-  arrCcy: any;
-  arrBuy:any;
-  count:string | number = 0;
-  base = 'UAH';
-  cont2 = 'USD';
-  result: number = 0;
+  constructor(private converterService: CurrencyapidataService) {}
 
-  changeBase(a: string) {
-    this.base = a
+  ngOnInit(): void {
+    this.getCountriesFrom();
+    this.getCountriesTo();
   }
 
-  toCountry(b: string){
-    this.cont2 = b;   
+  getCountriesFrom(){
+    this.converterService.getCountries().subscribe(data =>
+      this.currenciesFrom = Object.entries(data).map((value) => value[0].toUpperCase())
+    );
+  }
+
+  getCountriesTo(){
+    this.converterService.getCountries().subscribe(data =>
+      this.currenciesTo = Object.entries(data).map((value) => value[0].toUpperCase())
+    );
+  }
+  convertCurrency(from: any, to: any, value: number){
+    this.converterService.convert(from, to, value).subscribe(data => {
+      this.data = Object.entries(data).map(x => x[1])
+      this.result = this.data[3];
+    });
+  }
+
+  getFlag(flag?:any, to?:any){
+    this.flagFrom = flag.toString().slice(0, -1).toLowerCase();
+    this.flagTo = to.toString().slice(0, -1).toLowerCase();
   }
 
   inputHandler(event:any) {
-    const value = event.target.value
-    this.count = value
+    this.value = event.target.value;
   }
-
-  constructor(private currency: CurrencyapidataService) {}
-
-  convert(): void {
-    this.currency.getCurrencyData().subscribe(data => {
-      this.currjson = JSON.stringify(data);
-      this.currjson = JSON.parse(this.currjson);
-
-      this.arrCcy = this.currjson.map((el:any) => el.ccy);
-      this.arrBuy = this.currjson.map((el:any) => el.buy);
-      
-      if(this.cont2 === this.arrCcy[0]){
-        this.result = +this.count * this.arrBuy[0]
-      }
-      else if(this.cont2 === this.arrCcy[1]){
-        this.result = +this.count * this.arrBuy[1]
-      }
-      else if(this.cont2 === 'UAH'){
-        this.result = +this.count * 1
-      }
-    }) 
-  }
-  
 }

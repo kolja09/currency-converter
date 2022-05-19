@@ -7,10 +7,33 @@ import { HttpClient }  from '@angular/common/http';
 
 export class CurrencyapidataService {
 
-  constructor(private http:HttpClient) { }
+  url:string = 'https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies.json';
 
-  getCurrencyData(){
-    let url = `https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5`
-    return this.http.get(url)
+  constructor(private http: HttpClient) { }
+
+  myHeaders:any = new Headers();
+  
+  getCountries(){
+    return this.http.get(this.url);
+  }
+
+  getCurrencyData(source:any, currencies:any){
+    return this.http.get(`https://api.apilayer.com/currency_data/live?source=${source}&currencies=${currencies}`, 
+    {
+      headers: {
+        "apikey": "OhWPneAavfa4IPVQt12cAsRFRfylqUE6",
+      }
+    })
+  }
+
+
+  convert(from: string, to: string, amount: number) {
+    return this.http.get(`https://api.apilayer.com/currency_data/convert?to=${to}&from=${from}&amount=${amount}`, 
+      {
+        headers: {
+          "apikey": "OhWPneAavfa4IPVQt12cAsRFRfylqUE6",
+        }
+      }
+    )
   }
 }

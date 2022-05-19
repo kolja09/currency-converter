@@ -7,23 +7,33 @@ import { CurrencyapidataService } from "../currencyapidata.service";
     styleUrls: ['./header.component.css'],
 })
 
-export class HeaderComponent implements OnInit {
-    
-    currjson: any = [];
-    buyCurrency: any;
-    USDCurrency= 0;
-    EURCurrency = 0;
+export class HeaderComponent {
+    USD: any = 'USD';
+    EUR: any = 'EUR';
+    foreignCurrency: any = 'UAH';
+    exchangeRateInDollar: any;
+    resultInCourseInDollar: any;
+    exchangeRateInEuro: any;
+    resultInCourseInEuro: any;
 
     constructor(private currency: CurrencyapidataService) {}
-      
+
     ngOnInit(): void {
-      this.currency.getCurrencyData().subscribe(data => {
-        this.currjson = JSON.stringify(data);
-        this.currjson = JSON.parse(this.currjson);
-        this.buyCurrency = this.currjson.map((el:any )=> el.buy);
+      this.getResultDollar()
+      this.getResultEuro()
+    }
       
-        this.EURCurrency = this.buyCurrency[1];
-        this.USDCurrency = this.buyCurrency[0];
-    })
+    getResultDollar(){
+        this.currency.getCurrencyData(this.USD, this.foreignCurrency).subscribe(data => {
+          this.exchangeRateInDollar = Object.entries(data).map((value) => value);
+          this.resultInCourseInDollar = this.exchangeRateInDollar[3][1].USDUAH; 
+        })
+    }
+
+    getResultEuro(){
+        this.currency.getCurrencyData(this.EUR, this.foreignCurrency).subscribe(data => {
+          this.exchangeRateInEuro = Object.entries(data).map((value) => value);
+          this.resultInCourseInEuro = this.exchangeRateInEuro[3][1].EURUAH; 
+        })
     }
 }

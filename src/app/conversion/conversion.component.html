@@ -1,0 +1,24 @@
+<div class="wrapper">
+    <div class="main-container">
+        <div class="selection-count">
+            <select #c1 (mouseleave)="changeBase(c1.value)" >
+                <option value="UAH">UAH</option>
+            </select>
+            <p>to</p>
+            <select #c2  (mouseleave)="toCountry(c2.value)">
+                <option value="USD">US Dollar</option>
+                <option value="UAH">UAH</option>
+                <option value="EUR">Euro</option>
+            </select>
+        </div>
+        <div class="convert">
+            <input type="text" (input)="inputHandler($event)"/> 
+            <button (click)="convert()">Convert</button>
+        </div>
+        <div class="result-container">
+            <p>{{count}} {{ base }}</p>
+            <p>=</p>
+            <p>{{ result }} {{ cont2 }}</p>
+        </div>
+    </div>  
+</div>

@@ -1,0 +1,30 @@
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h1{
+    border-bottom: 1px solid rgba(54, 70, 115, 0.08);
+    padding-bottom: 20px;
+    font-size: 30px;
+    margin: 30px 0 20px 0;
+    color: #15416e;
+    line-height: 1.1;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.currency-container{
+    display: flex;
+    color: #15416e;
+}
+
+.currency {
+    margin-right: 70px;
+    font-weight: 700;
+}
+
+.currency span{
+    font-weight: 400;
+}

@@ -25,7 +25,7 @@ export class HeaderComponent {
       
     getResultDollar(){
         this.currency.getCurrencyData(this.USD, this.foreignCurrency).subscribe(data => {
-          this.exchangeRateInDollar = Object.entries(data).map((value) => value);
+          this.exchangeRateInDollar = Object.entries(data).map((value) => value);        
           this.resultInCourseInDollar = this.exchangeRateInDollar[3][1].USDUAH; 
         })
     }

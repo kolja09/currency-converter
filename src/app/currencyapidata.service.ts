@@ -21,7 +21,7 @@ export class CurrencyapidataService {
     return this.http.get(`https://api.apilayer.com/currency_data/live?source=${source}&currencies=${currencies}`, 
     {
       headers: {
-        "apikey": "OhWPneAavfa4IPVQt12cAsRFRfylqUE6",
+        "apikey": "HgVK4apORyExLq8mBc03L2AbyG34C0XP",
       }
     })
   }
@@ -31,7 +31,7 @@ export class CurrencyapidataService {
     return this.http.get(`https://api.apilayer.com/currency_data/convert?to=${to}&from=${from}&amount=${amount}`, 
       {
         headers: {
-          "apikey": "OhWPneAavfa4IPVQt12cAsRFRfylqUE6",
+          "apikey": "HgVK4apORyExLq8mBc03L2AbyG34C0XP",
         }
       }
     )

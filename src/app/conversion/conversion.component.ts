@@ -38,8 +38,8 @@ export class ConversionComponent{
   }
   convertCurrency(from: any, to: any, value: number){
     this.converterService.convert(from, to, value).subscribe(data => {
-      this.data = Object.entries(data).map(x => x[1])
-      this.result = this.data[3];
+      this.data = Object.entries(data).map(x => x[1])      
+      this.result = this.data[3];    
     });
   }
 
